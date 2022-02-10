@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  myartemis1:
+    build: artemis/
+    volumes:
+      - "/e/sandbox/artemis_volume/artemis1/etc:/artemis/bernard/etc"
+    networks:
+      artemis-cluster-network:
+        ipv4_address: 172.20.0.100
+    ports:
+      - 8161:8161
+      - 9404:9404
+      - 9876:9876
+      - 61616:61616
+      - 5445:5445
+      - 5672:5672
+      - 1883:1883
+      - 61613:61613
+      - 5432:5432
+  myartemis2:
+    build: artemis/
+    volumes:
+      - "/e/sandbox/artemis_volume/artemis2/etc:/artemis/bernard/etc"
+    networks:
+      artemis-cluster-network:
+        ipv4_address: 172.20.0.101
+    ports:
+      - 8162:8161
+      - 9405:9404
+      - 9877:9876
+      - 61618:61616
+      - 61617:61617
+      - 5446:5445
+      - 5673:5672
+      - 1884:1883
+      - 61614:61613
+      - 5433:5432
+
+volumes:
+  artemis1:
+  artemis2:
+
+networks:
+  artemis-cluster-network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
